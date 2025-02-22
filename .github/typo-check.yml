@@ -1,0 +1,27 @@
+name: Typo Check
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  typo-check:
+    runs-on: ubunut-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Typos Check
+        uses: crate-ci/typos@v1
+        with:
+          files: |
+            ./**/*.c
+            ./**/*.h
+            ./**/*.asm
+            ./**/*.s
+            ./**/*.md
+          exclude: |
+            **/build/**
+            **/third_party/**
