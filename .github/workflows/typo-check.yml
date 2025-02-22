@@ -8,20 +8,13 @@ on:
 
 jobs:
   typo-check:
-    runs-on: ubunut-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install Typos
+        run: cargo install typos-cli
+
       - name: Run Typos Check
-        uses: crate-ci/typos@v1
-        with:
-          files: |
-            ./**/*.c
-            ./**/*.h
-            ./**/*.asm
-            ./**/*.s
-            ./**/*.md
-          exclude: |
-            **/build/**
-            **/third_party/**
+        run: typos --exclude build/ third_party/ --format brief
